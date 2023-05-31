@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className='authentication'>
         <div className='authentication-form card p-3'>
-        <img className="logo-login-register" src='https://img1.wsimg.com/isteam/ip/dae799e5-227f-4883-be76-e0fd00525a5e/Logo-1%404x-100%20cropped.jpg/:/rs=w:672,h:150,cg:true,m/cr=w:672,h:150/qt=q:95' width='140' height='35'/>
+        {/* <img className="logo-login-register" src='https://img1.wsimg.com/isteam/ip/dae799e5-227f-4883-be76-e0fd00525a5e/Logo-1%404x-100%20cropped.jpg/:/rs=w:672,h:150,cg:true,m/cr=w:672,h:150/qt=q:95' width='140' height='35'/> */}
             {/* <h1 className='card-title'>Welcome Back</h1> */}
             <Form layout='vertical' onFinish={onFinish}>
             
