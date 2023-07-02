@@ -4,10 +4,15 @@ import { useParams } from 'react-router-dom'
 import useGet from '../../hooks/useGet'
 import { Form, Col, Row, Input, Button } from 'antd'
 import usePost from '../../hooks/usePost'
+import { useDispatch } from 'react-redux'
+import { showLoading, hideLoading } from '../../redux/alertsSlice'
 
 export default function UserProfile() {
+    const dispatch = useDispatch()
     const id = useParams().userId
     const {data, isLoading, err} = useGet({api: `/api/admin/user-profile/${id}`})
+    if(isLoading){ dispatch(showLoading())
+    } else {dispatch(hideLoading())}
     console.log(data);
     const {isLoading: loading_v2, err: err_3, onSubmit} = usePost({
       api: `/api/admin/update-user-profile/${id}`,
@@ -16,6 +21,8 @@ export default function UserProfile() {
 
   return data ? (
     <Layout>
+       <h1>User Account Profile</h1>
+      <hr></hr>
              <Form layout="vertical" onFinish={onSubmit} initialValues={data}>
         <h1 className="card-title mt-3">Personal Information</h1>
         <Row gutter={20}>
@@ -102,5 +109,5 @@ export default function UserProfile() {
       </Form>
 
     </Layout>
-  ) : "Data is loading..."
+  ) : 'Data is Loading'
 }

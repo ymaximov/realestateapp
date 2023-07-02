@@ -3,43 +3,60 @@ import Layout from '../components/Layout'
 import {Col, Row, Tabs, Form, Input, Button, Table} from 'antd'
 import useGet from '../hooks/useGet'
 import { useNavigate, Link, useParams  } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'ag-grid-enterprise';
+import { AgGridReact } from 'ag-grid-react';
+import { agGridLicense } from "../AGGrid";
+import { hideLoading, showLoading } from '../redux/alertsSlice'
 
 export default function TeamManagement() {
 const navigate = useNavigate()
+const dispatch = useDispatch()
 const id = useSelector((state) => state.user).user.companyId._id;
     const {data, isLoading, err} = useGet({ api: `/api/admin/get-all-users/${id}` })
     console.log(data)
-    if(isLoading) return "Loading..."
+    isLoading ? dispatch(showLoading()) : dispatch(hideLoading())
     if(err) return <h1>{err}</h1>
-    const columns = [
+    
+    const handleCellClicked = (params) => {
+      console.log('AG GRID cell clicked', params);
+      navigate(`/admin/user-profile/${params.data?._id}`)
+    }
+
+    const columnDefs = [
         {
-          title: "Username",
-          dataIndex: "email",
+          headerName: "Username",
+          field: "email",
         },
         {
-          title: "Name",
-          dataIndex: "name",
-          render: (text, record) => record.firstName + ' ' +record.lastName
+          headerName: "First Name",
+          field: "firstName",
         },
         {
-          title: "Phone Number",
-          dataIndex: "phone",
+          headerName: "Last Name",
+          field: "lastName",
         },
         {
-          title: "Account Type",
-          dataIndex: "role",
+          headerName: "Phone Number",
+          field: "phone",
         },
         {
-          title: "Actions",
-          dataIndex: "actions",
-          render: (text, record) => (
-            <div className="d-flex">
-              <Link to={`/admin/user-profile/${record._id}`} className="anchor">Edit</Link>
-            </div>
-          ),
+          headerName: "Account Type",
+          field: "role",
         },
       ];
+
+      // {
+        //   title: "Actions",
+        //   dataIndex: "actions",
+        //   render: (text, record) => (
+        //     <div className="d-flex">
+        //       <Link to={`/admin/user-profile/${record._id}`} className="anchor">Edit</Link>
+        //     </div>
+        //   ),
+        // },
   return (
     <Layout>
         <h1>Employee Management</h1>
@@ -47,7 +64,14 @@ const id = useSelector((state) => state.user).user.companyId._id;
         <Button type="primary" onClick={() => navigate(`admin/create-user/${id}`)}>
         Add
       </Button>
-        <Table columns={columns} dataSource={data.data} />
+      <div className="ag-theme-alpine" style={{ height: '300px', width: '85vw' }}>
+      <AgGridReact
+        rowData={data?.data}
+        columnDefs={columnDefs}
+        onCellClicked={handleCellClicked}
+        licenseKey={agGridLicense} // Replace with your AG Grid Enterprise license key
+      ></AgGridReact>
+    </div>
     </Layout>
   )
 }

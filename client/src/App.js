@@ -25,6 +25,8 @@ import AgGrid from "./components/AgGrid";
 import Tasks from "./pages/Tasks";
 import ClientManagement from "./pages/ClientManagement";
 import AddClient from "./pages/AddClient";
+import BpProfile from "./pages/BusPartnerProfile";
+import BusPartnerProfile from "./pages/BusPartnerProfile";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -56,7 +58,7 @@ function App() {
         <Route path="/property-management/portfolio/add-new-property" element={<ProtectedRoute><AddNewProperty/></ProtectedRoute>}></Route>
         <Route path="/client-management" element={<ProtectedRoute><ClientManagement/></ProtectedRoute>}></Route>
         <Route path="/add-client" element={<ProtectedRoute><AddClient/></ProtectedRoute>}></Route>
-        {/* Testing AG GRID */}
+        <Route path="bp-profile/:bpId" element={<ProtectedRoute><BusPartnerProfile /></ProtectedRoute>}></Route>
         <Route path="/tasks" element={<ProtectedRoute><Tasks/></ProtectedRoute>}></Route>
       </Routes>
     </BrowserRouter>
