@@ -74,7 +74,7 @@ export default function Home() {
           <Card bordered={true}>
             <Statistic
               title="Revenue This Month"
-              value={11.28}
+              value={1103.28}
               precision={2}
               valueStyle={{ color: "#3f8600" }}
               prefix={<ArrowUpOutlined />}

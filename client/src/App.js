@@ -27,6 +27,8 @@ import ClientManagement from "./pages/ClientManagement";
 import AddClient from "./pages/AddClient";
 import BpProfile from "./pages/BusPartnerProfile";
 import BusPartnerProfile from "./pages/BusPartnerProfile";
+import TenantManagement from "./pages/property-management/TenantManagement";
+import AddTenant from "./pages/property-management/AddTenant";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -60,6 +62,8 @@ function App() {
         <Route path="/add-client" element={<ProtectedRoute><AddClient/></ProtectedRoute>}></Route>
         <Route path="bp-profile/:bpId" element={<ProtectedRoute><BusPartnerProfile /></ProtectedRoute>}></Route>
         <Route path="/tasks" element={<ProtectedRoute><Tasks/></ProtectedRoute>}></Route>
+        <Route path="/property-management/tenant-management" element={<ProtectedRoute><TenantManagement /></ProtectedRoute>}></Route>
+        <Route path="/property-management/add-tenant" element={<ProtectedRoute><AddTenant /></ProtectedRoute>}></Route>
       </Routes>
     </BrowserRouter>
   );

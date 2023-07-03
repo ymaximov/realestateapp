@@ -26,7 +26,7 @@ export default function Layout({ children }) {
     },
     {
       name: "Tenant Management",
-      path: "/tenant-management",
+      path: "/property-management/tenant-management",
       icon: "ri-account-pin-box-line",
     },
     {
@@ -124,8 +124,8 @@ export default function Layout({ children }) {
       icon: "ri-service-line",
     },
     {
-      name: "Client Management",
-      path: "/client-management",
+      name: "Tenant Management",
+      path: "/property-management/tenant-management",
       icon: "ri-account-pin-box-line",
     },
     {
